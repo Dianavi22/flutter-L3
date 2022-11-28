@@ -6,9 +6,8 @@ import 'package:flutter/cupertino.dart';
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
 Random _rnd = Random();
 
-String getRandomString(int length) =>
-    String.fromCharCodes(Iterable.generate(
-        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
 class card_contact_dynamique extends StatefulWidget {
   @override
@@ -17,50 +16,48 @@ class card_contact_dynamique extends StatefulWidget {
   }
 }
 
+//class person {
+// var name = ['Dallas', 'Wonka', 'Sparrow', 'Potter' ];
+// var firstname = ['Corben', 'Willy', 'Jack', 'Harry'];
+// }
+
 class _card_contact_dynamique extends State<card_contact_dynamique> {
-
-  Widget CreateCard (BuildContext context, index) {
-
+  Widget CreateCard() {
     return Card(
-       shape: RoundedRectangleBorder(
-         borderRadius: BorderRadius.circular(15.0),
-       ),
-       color: Colors
-           .primaries[Random().nextInt(
-           Colors.primaries.length)],
-       elevation: 10,
-       child: Column(
-         mainAxisSize: MainAxisSize.min,
-         children: [
-           ListTile(
-             leading: Icon(Icons.face, size: 70),
-             title: Text('$nom',
-                 style: TextStyle(
-                   color: Colors.white,
-                   fontWeight: FontWeight.bold,
-                 )),
-             subtitle: Text('$prenom',
-                 style: TextStyle(color: Colors.white)),
-           ),
-           Text('', style: TextStyle(color: Colors.white)),
-           Text('$nom@email.com',
-               style: TextStyle(color: Colors.white)),
-           Text('', style: TextStyle(color: Colors.white)),
-         ],
-       ),
-     );
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+      elevation: 10,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: Icon(Icons.face, size: 70),
+            title: Text('$nom',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                )),
+            subtitle: Text('$prenom', style: TextStyle(color: Colors.white)),
+          ),
+          Text('', style: TextStyle(color: Colors.white)),
+          Text('$nom@email.com', style: TextStyle(color: Colors.white)),
+          Text('', style: TextStyle(color: Colors.white)),
+        ],
+      ),
+    );
   }
 
   void RefreshList() {
     setState(() {
-      list_card;
+      list_card.add(CreateCard());
     });
   }
 
   var nom = getRandomString(10) as String;
   var prenom = getRandomString(10) as String;
   var nb_card = 1;
-
   var list_card = [];
 
   @override
@@ -87,31 +84,12 @@ class _card_contact_dynamique extends State<card_contact_dynamique> {
 
       body: ListView.builder(
           itemCount: list_card.length,
-          itemBuilder: (BuildContext context, int index)  {
-            return  Column(
-              children: [
-                Container(
-                  width: 500,
-                  child: Column(
-                    children: [
-                      CreateCard(context, index),
-
-
-                    ],
-
-                  ),
-                ),
-              ],
-            );
-          }
-      ),
+          itemBuilder: (BuildContext context, int index) {
+            return list_card[index];
+          }),
 
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-          list_card.add(context);
-          RefreshList();
-          },
-
+          onPressed:RefreshList,
           backgroundColor: Colors.blue,
           child: const Icon(Icons.add)),
     );

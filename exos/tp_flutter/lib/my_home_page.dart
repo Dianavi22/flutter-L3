@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tp_flutter/add_contact_card.dart';
+import 'package:tp_flutter/add_animal_card.dart';
 import 'package:tp_flutter/card_contact.dart';
 import 'package:tp_flutter/card_contact_dynamique.dart';
+
+import 'add_contact_card.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -40,9 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Stack(
       children: [
         Container(
-          decoration: const BoxDecoration(
-           color: Colors.white
-          ),
+          decoration: const BoxDecoration(color: Colors.white),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -64,80 +64,142 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-
-
-                ElevatedButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     Navigator.push(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => card_contact()));
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    shadowColor: Colors.transparent.withOpacity(0.1),
-                  ),
-                  child: const Text(
-                    "\nExo 1",textAlign: TextAlign.center,
-                    style: TextStyle(
-                     // fontFamily: 'PressStart',
-                      fontSize: 22,
-                      color: Colors.black
+                  child: Container(
+                    width: 500,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey,
+                      elevation: 10,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          ListTile(
+                            leading: Icon(Icons.view_list, size: 70),
+                            title: Text('Exo 1',
+                                style: TextStyle(color: Colors.white)),
+                            subtitle: Text('Liste de card en dur',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          Text('accéder à card_contact',
+                              style: TextStyle(color: Colors.white)),
+                          Text('', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (_, __, ___) => card_contact_dynamique()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    shadowColor: Colors.transparent.withOpacity(0.1),
-                  ),
-                  child: const Text(
-                    "\nExo 2",textAlign: TextAlign.center,
-                    style: TextStyle(
-                     // fontFamily: 'PressStart',
-                      fontSize: 22,
-                        color: Colors.black
-                    ),
-                  ),
-                ),
-
-                ElevatedButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     Navigator.push(
                         context,
                         PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => add_contact_card()));
+                            pageBuilder: (_, __, ___) =>
+                                card_contact_dynamique()));
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    shadowColor: Colors.transparent.withOpacity(0.1),
-                  ),
-                  child: const Text(
-                    "\n Exo 3",textAlign: TextAlign.center,
-                    style: TextStyle(
-                     // fontFamily: 'PressStart',
-                      color: Colors.black,
-                      fontSize: 22,
+                  child: Container(
+                    width: 500,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey,
+                      elevation: 10,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          ListTile(
+                            leading: Icon(Icons.view_list, size: 70),
+                            title: Text('Exo 2',
+                                style: TextStyle(color: Colors.white)),
+                            subtitle: Text('générer des cards différentes',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          Text('accéder à card_contact_dynamique',
+                              style: TextStyle(color: Colors.white)),
+                          Text('', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                const Text(
-                  '',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'PressStart',
-                    color: Colors.black,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                add_animal_card()));
+                  },
+                  child: Container(
+                    width: 500,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey,
+                      elevation: 10,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          ListTile(
+                            leading: Icon(Icons.view_list, size: 70),
+                            title: Text('Exo 3',
+                                style: TextStyle(color: Colors.white)),
+                            subtitle: Text('Ajouter des cards en via de Radio button',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          Text('accéder à add_animal_card',
+                              style: TextStyle(color: Colors.white)),
+                          Text('', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                add_contact_card()));
+                  },
+                  child: Container(
+                    width: 500,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey,
+                      elevation: 10,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          ListTile(
+                            leading: Icon(Icons.view_list, size: 70),
+                            title: Text('Exo 4',
+                                style: TextStyle(color: Colors.white)),
+                            subtitle: Text('Ajouter des cards via un formulaire',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          Text('accéder à add_contact_card',
+                              style: TextStyle(color: Colors.white)),
+                          Text('', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

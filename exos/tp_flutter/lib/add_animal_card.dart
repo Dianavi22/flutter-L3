@@ -10,25 +10,21 @@ Random _rnd = Random();
 String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
-class add_contact_card extends StatefulWidget {
+class add_animal_card extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _add_contact_card();
+    return _add_animal_card();
   }
 }
 
-//class person {
-// var name = ['Dallas', 'Wonka', 'Sparrow', 'Potter' ];
-// var firstname = ['Corben', 'Willy', 'Jack', 'Harry'];
-// }
 
 enum animal_list {
   chien,
   oiseau,
 }
 
-class _add_contact_card extends State<add_contact_card> {
-  Widget CreateCard(Icon value) {
+class _add_animal_card extends State<add_animal_card> {
+  Widget CreateCard(Icon value, String nom, String talk) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -45,7 +41,7 @@ class _add_contact_card extends State<add_contact_card> {
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 )),
-            subtitle: Text('$prenom', style: TextStyle(color: Colors.white)),
+            subtitle: Text('$talk', style: TextStyle(color: Colors.white)),
           ),
           Text('', style: TextStyle(color: Colors.white)),
           Text('$nom@email.com', style: TextStyle(color: Colors.white)),
@@ -55,26 +51,32 @@ class _add_contact_card extends State<add_contact_card> {
     );
   }
 
-  void RefreshList(value) {
+  void RefreshList(value, String name, String talk) {
     setState(() {
-      list_card.add(CreateCard(value));
+      list_card.add(CreateCard(value, name, talk));
     });
   }
 
-  var nom = getRandomString(10) as String;
-  var prenom = getRandomString(10) as String;
+
   var nb_card = 1;
   var list_card = [];
 
   void Refresh(animal_list? value) {
     animal image;
+    animal nom;
+    animal talking;
     if (value == animal_list.chien) {
       image = chien();
+      nom = chien();
+      talking = chien();
+
     } else {
       image = oiseau();
+      nom = oiseau();
+      talking = oiseau();
     }
     setState(() => _animal = value);
-    RefreshList(image.icon);
+    RefreshList(image.icon, nom.name, talking.talk);
   }
 
   animal_list? _animal = animal_list.chien;
@@ -124,8 +126,8 @@ class _add_contact_card extends State<add_contact_card> {
                   ),
                 ); // RefreshList();
               }
-            // },
-          )
+              // },
+              )
         ],
       ),
 
