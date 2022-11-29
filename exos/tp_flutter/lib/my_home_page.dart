@@ -187,12 +187,48 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: const [
                           ListTile(
                             leading: Icon(Icons.view_list, size: 70),
+
                             title: Text('Exo 4',
                                 style: TextStyle(color: Colors.white)),
                             subtitle: Text('Ajouter des cards via un formulaire',
                                 style: TextStyle(color: Colors.white)),
                           ),
                           Text('accéder à add_contact_card',
+                              style: TextStyle(color: Colors.white)),
+                          Text('', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                add_contact_card()));
+                  },
+                  child: Container(
+                    width: 500,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey,
+                      elevation: 10,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          ListTile(
+                            leading: Icon(Icons.view_list, size: 70),
+
+                            title: Text('Exo 5',
+                                style: TextStyle(color: Colors.white)),
+                            subtitle: Text('Ajouter des cards via un formulaire dans uen autre page',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          Text('accéder à ',
                               style: TextStyle(color: Colors.white)),
                           Text('', style: TextStyle(color: Colors.white)),
                         ],

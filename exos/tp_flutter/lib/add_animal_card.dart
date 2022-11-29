@@ -24,7 +24,7 @@ enum animal_list {
 }
 
 class _add_animal_card extends State<add_animal_card> {
-  Widget CreateCard(Icon value, String nom, String talk) {
+  Widget CreateCard(Icon value, String nom, String talk, Image img) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -51,9 +51,9 @@ class _add_animal_card extends State<add_animal_card> {
     );
   }
 
-  void RefreshList(value, String name, String talk) {
+  void RefreshList(value, String name, String talk, Image img) {
     setState(() {
-      list_card.add(CreateCard(value, name, talk));
+      list_card.add(CreateCard(value, name, talk, img));
     });
   }
 
@@ -63,20 +63,23 @@ class _add_animal_card extends State<add_animal_card> {
 
   void Refresh(animal_list? value) {
     animal image;
+    animal photo;
     animal nom;
     animal talking;
     if (value == animal_list.chien) {
       image = chien();
       nom = chien();
       talking = chien();
+      photo = chien();
 
     } else {
       image = oiseau();
       nom = oiseau();
       talking = oiseau();
+      photo = oiseau();
     }
     setState(() => _animal = value);
-    RefreshList(image.icon, nom.name, talking.talk);
+    RefreshList(image.icon, nom.name, talking.talk, photo.img,);
   }
 
   animal_list? _animal = animal_list.chien;
