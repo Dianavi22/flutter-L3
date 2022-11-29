@@ -245,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) =>
-                                add_card_bdd()));
+                                add_card_form()));
                   },
                   child: Container(
                     width: 500,
