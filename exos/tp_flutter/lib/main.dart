@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tp_flutter/my_home_page.dart';
+import 'seconde_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-     // routes: {"seconde_page": (context)=> SecondePage(),},
+      routes: {seconde_page.tag: (context)=> seconde_page(),},
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.

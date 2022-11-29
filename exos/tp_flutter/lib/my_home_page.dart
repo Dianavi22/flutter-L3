@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tp_flutter/add_animal_card.dart';
+import 'package:tp_flutter/add_card_form.dart';
 import 'package:tp_flutter/card_contact.dart';
 import 'package:tp_flutter/card_contact_dynamique.dart';
 
@@ -207,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) =>
-                                add_contact_card()));
+                                add_card_form()));
                   },
                   child: Container(
                     width: 500,
@@ -228,7 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             subtitle: Text('Ajouter des cards via un formulaire dans uen autre page',
                                 style: TextStyle(color: Colors.white)),
                           ),
-                          Text('accéder à ',
+                          Text('accéder à add_card_form',
                               style: TextStyle(color: Colors.white)),
                           Text('', style: TextStyle(color: Colors.white)),
                         ],

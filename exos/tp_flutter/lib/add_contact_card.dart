@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
-import 'package:tp_flutter/pet_class.dart';
 import 'package:tp_flutter/user.dart';
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
@@ -18,12 +17,6 @@ class add_contact_card extends StatefulWidget {
     return _add_contact_card();
   }
 }
-
-//class person {
-// var name = ['Dallas', 'Wonka', 'Sparrow', 'Potter' ];
-// var firstname = ['Corben', 'Willy', 'Jack', 'Harry'];
-// }
-
 
 class _add_contact_card extends State<add_contact_card> {
   Widget CreateCard(User user) {
