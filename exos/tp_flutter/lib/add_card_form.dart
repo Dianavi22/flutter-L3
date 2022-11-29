@@ -17,7 +17,7 @@ class add_card_form extends StatefulWidget {
 
 }
 class _add_card_form extends State<add_card_form> {
-  Widget CreateCard(animal animal) {
+  Widget CreateCard(Animal animal) {
 
     return Card(
 
@@ -30,7 +30,7 @@ class _add_card_form extends State<add_card_form> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-             leading: animal.icon,
+             leading: animal.img,
             title: Text(animal.name,
                 style: TextStyle(
                   color: Colors.white,
@@ -38,7 +38,6 @@ class _add_card_form extends State<add_card_form> {
                 )),
             subtitle: Text(animal.talk, style: TextStyle(color: Colors.white)),
           ),
-          Text('', style: TextStyle(color: Colors.white)),
          // Text(user.email, style: TextStyle(color: Colors.white)),
           Text('', style: TextStyle(color: Colors.white)),
         ],
@@ -46,7 +45,7 @@ class _add_card_form extends State<add_card_form> {
     );
   }
 
-  List<animal> list_card = [];
+  List<Animal> list_card = [];
 
   @override
   Widget build(BuildContext context) {

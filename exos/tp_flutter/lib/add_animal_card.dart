@@ -62,21 +62,21 @@ class _add_animal_card extends State<add_animal_card> {
   var list_card = [];
 
   void Refresh(animal_list? value) {
-    animal image;
-    animal photo;
-    animal nom;
-    animal talking;
+    Animal image;
+    Animal photo;
+    Animal nom;
+    Animal talking;
     if (value == animal_list.chien) {
-      image = chien();
-      nom = chien();
-      talking = chien();
-      photo = chien();
+      image = Chien.create();
+      nom = Chien.create();
+      talking = Chien.create();
+      photo = Chien.create();
 
     } else {
-      image = oiseau();
-      nom = oiseau();
-      talking = oiseau();
-      photo = oiseau();
+      image = Oiseau.create();
+      nom = Oiseau.create();
+      talking = Oiseau.create();
+      photo = Oiseau.create();
     }
     setState(() => _animal = value);
     RefreshList(image.icon, nom.name, talking.talk, photo.img,);

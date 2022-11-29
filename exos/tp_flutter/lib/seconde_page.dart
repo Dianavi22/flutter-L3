@@ -23,34 +23,26 @@ class _seconde_page extends State<seconde_page> {
   animal_list? _animal = animal_list.chien;
 
   void Refresh(animal_list? value) {
-    animal image;
-    animal photo;
-    animal nom;
-    animal talking;
     if (value == animal_list.chien) {
-      image = chien();
-      nom = chien();
-      talking = chien();
-      photo = chien();
+      finalValue = Chien.create();
     } else {
-      image = oiseau();
-      nom = oiseau();
-      talking = oiseau();
-      photo = oiseau();
+      finalValue = Oiseau.create();
     }
     setState(() => _animal = value);
-    RefreshList(image.icon, nom.name, talking.talk, photo.img,);
   }
 
-  void RefreshList(value, String name, String talk, Image img) {
+  void RefreshList(Animal value) {
     setState(() {
-      list_card.add(animal);
+      list_card.add(value);
     });
   }
 
+   Animal finalValue = Chien.create();
+
   @override
   Widget build(BuildContext context) {
-    List list_card = ModalRoute.of(context)!.settings.arguments as List;
+    list_card = ModalRoute.of(context)!.settings.arguments as List;
+    State<StatefulWidget> createState() => _seconde_page();
     return Stack(
       children: [
         Container(
@@ -58,42 +50,50 @@ class _seconde_page extends State<seconde_page> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          // <-- SCAFFOLD WITH TRANSPARENT BG
           appBar: AppBar(
-            // backgroundColor: Colors.transparent,
-            // <-- APPBAR WITH TRANSPARENT BG
             elevation: 0,
             actions: <Widget>[
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.add,
                     color: Colors.white,
                   ),
-                  onPressed: () {}
-                  // },
-                  )
+                  onPressed: () {})
             ],
           ),
-
           body: Form(
             key: _formKey,
             child: Column(children: [
               RadioListTile(
-                  title: Text("oiseau"),
+                  title: const Text("oiseau"),
                   value: animal_list.oiseau,
                   groupValue: _animal,
                   onChanged: (value) {
                     Refresh(value);
-                    Navigator.of(context).pop();
+                    //    Navigator.of(context).pop(Animal);
                   }),
               RadioListTile(
-                  title: Text("chien"),
+                  title: const Text("chien"),
                   value: animal_list.chien,
                   groupValue: _animal,
                   onChanged: (value) {
                     Refresh(value);
-                    Navigator.of(context).pop();
+                    // Navigator.of(context).pop(Animal);
                   }),
+              TextButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Animal animal = finalValue;
+                    RefreshList(animal);
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(14),
+                  child: const Text("okay"),
+                ),
+              ),
             ]),
           ),
         ),

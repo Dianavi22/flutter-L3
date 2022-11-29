@@ -4,6 +4,7 @@ import 'package:tp_flutter/add_card_form.dart';
 import 'package:tp_flutter/card_contact.dart';
 import 'package:tp_flutter/card_contact_dynamique.dart';
 
+import 'add_card_bdd.dart';
 import 'add_contact_card.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -230,6 +231,42 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(color: Colors.white)),
                           ),
                           Text('accéder à add_card_form',
+                              style: TextStyle(color: Colors.white)),
+                          Text('', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                add_card_bdd()));
+                  },
+                  child: Container(
+                    width: 500,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey,
+                      elevation: 10,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          ListTile(
+                            leading: Icon(Icons.view_list, size: 70),
+
+                            title: Text('Exo 6',
+                                style: TextStyle(color: Colors.white)),
+                            subtitle: Text('Ajouter des cards via un formulaire dans une bdd',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          Text('accéder à add_card_bdd',
                               style: TextStyle(color: Colors.white)),
                           Text('', style: TextStyle(color: Colors.white)),
                         ],
