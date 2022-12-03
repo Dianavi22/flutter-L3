@@ -1,4 +1,4 @@
-import 'package:app_gestion_ecurie/Pages/profil.dart';
+import 'package:ecurie_party/Pages/profil.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -13,7 +13,7 @@ class calendrier extends StatefulWidget {
 
 class _CalendarState extends State<calendrier> {
   Color _colorFond = const Color(0xFFFFF3E0);
-  Color _colorButton = const Color(0xFFB71C1C);
+  Color _colorButton = const Color(0xFF730800);
   Color _colorBottumNavBar = const Color(0xFF8D6E63);
 
   CalendarController _calendarController = new CalendarController();
@@ -31,23 +31,27 @@ class _CalendarState extends State<calendrier> {
           appBar: AppBar(
               backgroundColor: _colorButton,
               centerTitle: true,
-              title: Text('Fil d\'actualité')),
+              title: Text('Calendrier')),
           bottomNavigationBar: BottomAppBar(
-            color: _colorBottumNavBar,
+            color: _colorFond,
+
             // <-- APPBAR WITH TRANSPARENT BG
             elevation: 0,
 
-            child: new Row(
+            child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+
                 IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.article,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => actualites()));
@@ -55,12 +59,14 @@ class _CalendarState extends State<calendrier> {
                   },
                 ),
                 IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.add,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => add_event_page()));
@@ -69,12 +75,14 @@ class _CalendarState extends State<calendrier> {
                 ),
 
                 IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.calendar_month,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => calendrier()));
@@ -82,12 +90,14 @@ class _CalendarState extends State<calendrier> {
                   },
                 ),
                 IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.face,
-                    color: _colorFond,
+                    color: _colorBottumNavBar,
+                    size: 40,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => profil()));

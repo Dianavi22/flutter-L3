@@ -1,13 +1,14 @@
-import 'package:app_gestion_ecurie/Pages/actualites.dart';
-import 'package:app_gestion_ecurie/Pages/calendrier.dart';
-import 'package:app_gestion_ecurie/Pages/login.dart';
-import 'package:app_gestion_ecurie/Pages/profil.dart';
+import 'package:ecurie_party/Pages/actualites.dart';
+import 'package:ecurie_party/Pages/calendrier.dart';
+import 'package:ecurie_party/Pages/login.dart';
+import 'package:ecurie_party/Pages/profil.dart';
+import 'package:ecurie_party/main.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'add_event_page.dart';
-import 'form_cours.dart';
+import 'event_form/form_course.dart';
 
 class profil extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class profil extends StatefulWidget {
 
 class _profil extends State<profil> {
   Color _colorFond = const Color(0xFFFFF3E0);
-  Color _colorButton = const Color(0xFFB71C1C);
+  Color _colorButton = const Color(0xFF730800);
   Color _colorBottumNavBar = const Color(0xFF8D6E63);
 
   final _formKey = GlobalKey<FormState>();
@@ -26,6 +27,7 @@ class _profil extends State<profil> {
   final FirstnameController = TextEditingController();
   final EmailController = TextEditingController();
   final PasswordController = TextEditingController();
+  final ImageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class _profil extends State<profil> {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: _colorFond,
+            color: _colorBottumNavBar,
           ),
         ),
         Scaffold(
@@ -44,23 +46,27 @@ class _profil extends State<profil> {
               elevation: 0,
               backgroundColor: _colorButton,
               centerTitle: true,
-              title: Text('Fil d\'actualité')),
+              title: const Text('Mon compte')),
           bottomNavigationBar: BottomAppBar(
-            color: _colorBottumNavBar,
+            color: _colorFond,
+
             // <-- APPBAR WITH TRANSPARENT BG
             elevation: 0,
 
-            child: new Row(
+            child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.article,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => actualites()));
@@ -68,12 +74,14 @@ class _profil extends State<profil> {
                   },
                 ),
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.add,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => add_event_page()));
@@ -82,12 +90,14 @@ class _profil extends State<profil> {
                 ),
 
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.calendar_month,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => calendrier()));
@@ -95,12 +105,14 @@ class _profil extends State<profil> {
                   },
                 ),
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.face,
-                    color: _colorFond,
+                    color: _colorBottumNavBar,
+                    size: 40,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => profil()));
@@ -114,26 +126,28 @@ class _profil extends State<profil> {
           body: Center(
             child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child:  Image.network(
-                    'https://www.bowdenpr.co.uk/wp-content/uploads/2020/05/Hollie-5-300x225.jpg',
-                  ),
-                ),
-
-
-
-                Text(
-                  "Nom",
-                  style: TextStyle(
-                    fontSize: 30,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.network(
+                      'https://www.bowdenpr.co.uk/wp-content/uploads/2020/05/Hollie-5-300x225.jpg',
+                    ),
                   ),
                 ),
                 Text(
-                  "Prénom",
+                  MyApp.currentUser.name,
                   style: TextStyle(
                     fontSize: 30,
-
+                    color: _colorFond,
+                  ),
+                ),
+                Text(
+                  MyApp.currentUser.firstname,
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: _colorFond,
                   ),
                 ),
                 GestureDetector(
@@ -142,7 +156,7 @@ class _profil extends State<profil> {
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                         backgroundColor: _colorFond,
-                        title: const Text("Créer un compte"),
+                        title: const Text("Modifier son profil"),
                         content: Form(
                           key: _formKey,
                           child: Column(
@@ -152,7 +166,7 @@ class _profil extends State<profil> {
                                     horizontal: 8, vertical: 16),
                                 child: TextFormField(
                                   decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
+                                    border: const UnderlineInputBorder(),
                                     fillColor: _colorButton,
                                     labelText: 'Nom',
                                   ),
@@ -170,7 +184,7 @@ class _profil extends State<profil> {
                                     horizontal: 8, vertical: 16),
                                 child: TextFormField(
                                   decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
+                                    border: const UnderlineInputBorder(),
                                     fillColor: _colorButton,
                                     labelText: 'Prénom',
                                   ),
@@ -188,7 +202,7 @@ class _profil extends State<profil> {
                                     horizontal: 8, vertical: 16),
                                 child: TextFormField(
                                   decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
+                                    border: const UnderlineInputBorder(),
                                     fillColor: _colorButton,
                                     labelText: 'Email',
                                   ),
@@ -206,11 +220,29 @@ class _profil extends State<profil> {
                                     horizontal: 8, vertical: 16),
                                 child: TextFormField(
                                   decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
+                                    border: const UnderlineInputBorder(),
                                     fillColor: _colorButton,
                                     labelText: 'Mot de passe',
                                   ),
                                   controller: PasswordController,
+                                  validator: (textMail) {
+                                    if (textMail!.isEmpty) {
+                                      return 'Veuillez saisir un texte';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 16),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    border: const UnderlineInputBorder(),
+                                    fillColor: _colorButton,
+                                    labelText: 'URL photo',
+                                  ),
+                                  controller: ImageController,
                                   validator: (textMail) {
                                     if (textMail!.isEmpty) {
                                       return 'Veuillez saisir un texte';
@@ -225,7 +257,8 @@ class _profil extends State<profil> {
                         actions: <Widget>[
                           ElevatedButton(
                             onPressed: () {},
-                            style: ElevatedButton.styleFrom(primary: Colors.transparent,
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent,
                               shadowColor: Colors.transparent.withOpacity(0.1),
                             ),
                             child: Container(
@@ -249,14 +282,14 @@ class _profil extends State<profil> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      color: _colorBottumNavBar,
+                      color: _colorFond,
                       elevation: 10,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children:  [
                           ListTile(
                             title: Text('Modifier son profil',
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(color: _colorBottumNavBar)),
                           ),
                         ],
                       ),
@@ -274,14 +307,14 @@ class _profil extends State<profil> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      color: _colorBottumNavBar,
+                      color: _colorFond,
                       elevation: 10,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children:  [
                           ListTile(
                             title: Text('Se déconnecter',
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(color: _colorBottumNavBar)),
                           ),
                         ],
                       ),
@@ -290,10 +323,8 @@ class _profil extends State<profil> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => form_cours()));
+                    Navigator.push(context,
+                        PageRouteBuilder(pageBuilder: (_, __, ___) => login()));
                   },
                   child: Container(
                     width: 500,
@@ -301,14 +332,14 @@ class _profil extends State<profil> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      color: _colorBottumNavBar,
+                      color: _colorFond,
                       elevation: 10,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children:  [
                           ListTile(
                             title: Text('Supprimer son compte',
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(color: _colorBottumNavBar)),
                           ),
                         ],
                       ),

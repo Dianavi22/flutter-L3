@@ -1,6 +1,6 @@
 {
-    "name": "app_gestion_ecurie",
-    "short_name": "app_gestion_ecurie",
+    "name": "ecurie_party",
+    "short_name": "ecurie_party",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

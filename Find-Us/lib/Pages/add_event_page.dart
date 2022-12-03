@@ -1,16 +1,11 @@
-import 'package:app_gestion_ecurie/Pages/actualites.dart';
-import 'package:app_gestion_ecurie/Pages/calendrier.dart';
-import 'package:app_gestion_ecurie/Pages/form_event.dart';
-import 'package:app_gestion_ecurie/Pages/profil.dart';
+import 'package:ecurie_party/Pages/actualites.dart';
+import 'package:ecurie_party/Pages/calendrier.dart';
+import 'package:ecurie_party/Pages/event_form/form_party.dart';
+import 'package:ecurie_party/Pages/profil.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 
-import 'package:app_gestion_ecurie/Pages/calendrier.dart';
-
-import 'form_concours.dart';
-import 'form_cours.dart';
+import 'event_form/form_tournament.dart';
+import 'event_form/form_course.dart';
 
 class add_event_page extends StatefulWidget {
   @override
@@ -21,11 +16,9 @@ class add_event_page extends StatefulWidget {
 
 class _add_event_page extends State<add_event_page> {
   Color _colorFond = const Color(0xFFFFF3E0);
-  Color _colorButton = const Color(0xFFB71C1C);
+  Color _colorButton = const Color(0xFF730800);
   Color _colorBottumNavBar = const Color(0xFF8D6E63);
 
-
-  final _formKey = GlobalKey<FormState>();
   TextEditingController NameController = TextEditingController();
   TextEditingController FirstnameController = TextEditingController();
   TextEditingController MailController = TextEditingController();
@@ -34,11 +27,10 @@ class _add_event_page extends State<add_event_page> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-    Container(
-    decoration: BoxDecoration(
-    color: _colorFond,
-    ),
-
+        Container(
+          decoration: BoxDecoration(
+            color: _colorBottumNavBar,
+          ),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -46,23 +38,27 @@ class _add_event_page extends State<add_event_page> {
           appBar: AppBar(
               backgroundColor: _colorButton,
               centerTitle: true,
-              title: Text('Fil d\'actualité')),
+              title: const Text('Créer des évènements')),
           bottomNavigationBar: BottomAppBar(
-            color: _colorBottumNavBar,
+            color: _colorFond,
+
             // <-- APPBAR WITH TRANSPARENT BG
             elevation: 0,
 
-            child: new Row(
+            child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.article,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => actualites()));
@@ -70,12 +66,14 @@ class _add_event_page extends State<add_event_page> {
                   },
                 ),
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.add,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => add_event_page()));
@@ -84,12 +82,14 @@ class _add_event_page extends State<add_event_page> {
                 ),
 
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.calendar_month,
-                    color: _colorFond,
+                    size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => calendrier()));
@@ -97,12 +97,14 @@ class _add_event_page extends State<add_event_page> {
                   },
                 ),
                 IconButton(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   icon: Icon(
                     Icons.face,
-                    color: _colorFond,
+                    color: _colorBottumNavBar,
+                    size: 40,
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                             pageBuilder: (_, __, ___) => profil()));
@@ -116,91 +118,99 @@ class _add_event_page extends State<add_event_page> {
           body: Center(
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => form_concours()));
-                  },
-                  child: Container(
-                    width: 500,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      color: _colorBottumNavBar,
-                      elevation: 10,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          ListTile(
-                            leading: Icon(Icons.add, size: 70),
-                            title: Text('Ajouter une course',
-                                style: TextStyle(color: Colors.white)),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) => const FormTournament()));
+                        },
+                        child: Container(
+                          width: 500,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: _colorFond,
+                            elevation: 10,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.add, size: 70),
+                                  title: Text('Organiser une compétition',
+                                      style: TextStyle(color: _colorBottumNavBar)),
+                                ),
+                                const Text(''),
+                              ],
+                            ),
                           ),
-                          Text('', style: TextStyle(color: Colors.white)),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => form_event()));
-                  },
-                  child: Container(
-                    width: 500,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      color: _colorBottumNavBar,
-                      elevation: 10,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          ListTile(
-                            leading: Icon(Icons.add, size: 70),
-                            title: Text('Ajouter un évènement',
-                                style: TextStyle(color: Colors.white)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) => const FormParty()));
+                        },
+                        child: Container(
+                          width: 500,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: _colorFond,
+                            elevation: 10,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children:  [
+                                ListTile(
+                                  leading: const Icon(Icons.add, size: 70),
+                                  title: Text('Organiser une soirée',
+                                      style: TextStyle(color: _colorBottumNavBar)),
+                                ),
+                                const Text(''),
+                              ],
+                            ),
                           ),
-                          Text('', style: TextStyle(color: Colors.white)),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => form_cours()));
-                  },
-                  child: Container(
-                    width: 500,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      color: _colorBottumNavBar,
-                      elevation: 10,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          ListTile(
-                            leading: Icon(Icons.add, size: 70),
-                            title: Text('Ajouter un cours',
-                                style: TextStyle(color: Colors.white)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) => const FormCourse()));
+                        },
+                        child: Container(
+                          width: 500,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: _colorFond,
+                            elevation: 10,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.add, size: 70),
+                                  title: Text('Organiser un cours',
+                                      style: TextStyle(color: _colorBottumNavBar)),
+                                ),
+                                const Text(''),
+                              ],
+                            ),
                           ),
-                          Text('', style: TextStyle(color: Colors.white)),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ],

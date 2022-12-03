@@ -1,7 +1,8 @@
-import 'package:app_gestion_ecurie/Pages/actualites.dart';
-import 'package:app_gestion_ecurie/Pages/profil.dart';
+import 'package:ecurie_party/Pages/actualites.dart';
+import 'package:ecurie_party/Pages/profil.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:intl/intl.dart';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 
@@ -16,26 +17,37 @@ class form_concours extends StatefulWidget {
 }
 
 class _form_concours extends State<form_concours> {
+  final ValueNotifier<DateTime?> dateSub = ValueNotifier(null);
+  final ValueNotifier<DateTime?> longDateSub = ValueNotifier(null);
+  final ValueNotifier<TimeOfDay?> timeSub = ValueNotifier(null);
+  final ValueNotifier<TimeOfDay?> timeSubShort = ValueNotifier(null);
+  final TextEditingController meetingName = TextEditingController();
+  final TextEditingController meetingLink = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
-  TextEditingController NameController = TextEditingController();
-  TextEditingController FirstnameController = TextEditingController();
-  TextEditingController MailController = TextEditingController();
+  TextEditingController EventNameController = TextEditingController();
+  TextEditingController EventImageController = TextEditingController();
 
   String _dropDownDiscipline = "Discipline";
   String _dropDownLieux = "Lieux";
+
+  bool value = false;
+
   @override
   Widget build(BuildContext context) {
-
-
     Color _colorFond = const Color(0xFFFFF3E0);
-    Color _colorButton = const Color(0xFFB71C1C);
+    Color _colorButton = const Color(0xFF730800);
     Color _colorBottumNavBar = const Color(0xFF8D6E63);
+
+    bool? check1 = false;
+    bool? check2 = false;
+    bool? check3 = false;
 
 
     return Stack(
       children: [
         Container(
-          decoration:  BoxDecoration(color: _colorFond),
+          decoration: BoxDecoration(color: _colorFond),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -43,20 +55,20 @@ class _form_concours extends State<form_concours> {
           appBar: AppBar(
               backgroundColor: _colorButton,
               centerTitle: true,
-              title: Text('Fil d\'actualité')),
+              title: Text('Créer une course')),
           bottomNavigationBar: BottomAppBar(
-            color: _colorBottumNavBar,
+            color: _colorFond,
             // <-- APPBAR WITH TRANSPARENT BG
             elevation: 0,
 
             child: new Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
                   icon: Icon(
-                    Icons.article,
-                    color: _colorFond,
+                    Icons.article,size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -68,8 +80,8 @@ class _form_concours extends State<form_concours> {
                 ),
                 IconButton(
                   icon: Icon(
-                    Icons.add,
-                    color: _colorFond,
+                    Icons.add,size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -82,8 +94,8 @@ class _form_concours extends State<form_concours> {
 
                 IconButton(
                   icon: Icon(
-                    Icons.calendar_month,
-                    color: _colorFond,
+                    Icons.calendar_month,size: 40,
+                    color: _colorBottumNavBar,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -96,7 +108,7 @@ class _form_concours extends State<form_concours> {
                 IconButton(
                   icon: Icon(
                     Icons.face,
-                    color: _colorFond,
+                    color: _colorBottumNavBar,size: 40,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -115,84 +127,160 @@ class _form_concours extends State<form_concours> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  '.',
-                  style: TextStyle(
-                    fontSize: 1,
-                    fontFamily: 'PressStart',
-                    color: Colors.white,
-                  ),
-                ),
-                const Text(
-                  'Ajouter une course',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-                TextFormField(
-                  maxLength: 25,
-                  controller: MailController,
-                  decoration: const InputDecoration(
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      fillColor: _colorButton,
                       labelText: 'Nom de l\'évènement',
-                      border: OutlineInputBorder()),
-                  validator: (textMail) {
-                    if (textMail!.isEmpty) {
-                      return 'Veuillez saisir un texte';
-                    }
-                    return null;
-                  },
+                    ),
+                    controller: EventNameController,
+                    validator: (textMail) {
+                      if (textMail!.isEmpty) {
+                        return 'Veuillez saisir un texte';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-                DropdownButton(
-                    hint: _dropDownDiscipline == null
-                        ? Text('Discipline')
-                        : Text(
-                      _dropDownDiscipline,
-                      style: TextStyle(color: Colors.blue),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      fillColor: _colorButton,
+                      labelText: 'URL Image',
                     ),
-                    isExpanded: true,
-                    iconSize: 30.0,
-                    style: TextStyle(color: Colors.blue),
-                    items: ['Endurance', 'Entretient', 'Grand galop'].map(
-                          (val) {
-                        return DropdownMenuItem<String>(
-                          value: val,
-                          child: Text(val),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (val) {
-                      setState(
-                            () {
-                          _dropDownDiscipline = val!;
-                        },
-                      );
-                    }),
-                DropdownButton(
-                    hint: _dropDownLieux == null
-                        ? Text('Lieu')
-                        : Text(
-                      _dropDownLieux,
+                    controller: EventImageController,
+                    validator: (textMail) {
+                      if (textMail!.isEmpty) {
+                        return 'Veuillez saisir un texte';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: ValueListenableBuilder<DateTime?>(
+                      valueListenable: dateSub,
+                      builder: (context, dateVal, child) {
+                        return InkWell(
+                            onTap: () async {
+                              DateTime? date = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(2050),
+                                  currentDate: DateTime.now(),
+                                  initialEntryMode:
+                                      DatePickerEntryMode.calendar,
+                                  initialDatePickerMode: DatePickerMode.day,
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                          colorScheme: ColorScheme.light(
+                                        primary: Colors.blueGrey,
+                                        // onSurface: AppColors.blackCoffee,
+                                      )),
+                                      child: child!,
+                                    );
+                                  });
+                              dateSub.value = date;
+                            },
+                            child: buildDateTimePicker(
+                                dateVal != null ? convertDate(dateVal) : ''));
+                      }),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: ValueListenableBuilder<TimeOfDay?>(
+                      valueListenable: timeSubShort,
+                      builder: (context, timeVal, child) {
+                        return InkWell(
+                            onTap: () async {
+                              TimeOfDay? time = await showTimePicker(
+                                context: context,
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context),
+                                    child: child!,
+                                  );
+                                },
+                                initialTime: TimeOfDay.now(),
+                              );
+                              timeSubShort.value = time;
+                            },
+                            child: buildDateTimePicker(
+                                timeVal != null ? convertTime(timeVal) : ''));
+                      }),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: DropdownButton(
+                      hint: _dropDownLieux == null
+                          ? Text('Lieu')
+                          : Text(
+                              _dropDownLieux,
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                      isExpanded: true,
+                      iconSize: 30.0,
                       style: TextStyle(color: Colors.blue),
-                    ),
-                    isExpanded: true,
-                    iconSize: 30.0,
-                    style: TextStyle(color: Colors.blue),
-                    items: ['Cergy', 'Conflans', 'Pontoise'].map(
-                          (val) {
-                        return DropdownMenuItem<String>(
-                          value: val,
-                          child: Text(val),
-                        );
-                      },
-                    ).toList(),
-                    onChanged: (val) {
-                      setState(
-                            () {
-                          _dropDownLieux = val!;
+                      items: ['Cergy', 'Conflans', 'Pontoise'].map(
+                        (val) {
+                          return DropdownMenuItem<String>(
+                            value: val,
+                            child: Text(val),
+                          );
                         },
-                      );
-                    }),
+                      ).toList(),
+                      onChanged: (val) {
+                        setState(
+                          () {
+                            _dropDownLieux = val!;
+                          },
+                        );
+                      }),
+                ),
+
+
+                CheckboxListTile(
+                  //checkbox positioned at right
+                  value: check1,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      check1 = value;
+                    });
+                  },
+                  title: Text("Petit pas"),
+                ),
+                CheckboxListTile(
+                  //checkbox positioned at right
+                  value: check2,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      check2 = value;
+                    });
+                  },
+                  title: Text("Moyen trot"),
+                ),
+                CheckboxListTile(
+                  //checkbox positioned at right
+                  value: check3,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      check3 = value;
+                    });
+                  },
+                  title: Text("Grand galop"),
+                ),
 
                 ElevatedButton(
                   onPressed: () {
@@ -208,10 +296,10 @@ class _form_concours extends State<form_concours> {
                     primary: Colors.transparent,
                     shadowColor: Colors.transparent.withOpacity(0.1),
                   ),
-                  child: const Text(
+                  child: Text(
                     "Créer une course",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: _colorButton,
                       fontSize: 22,
                     ),
                   ),
@@ -219,8 +307,37 @@ class _form_concours extends State<form_concours> {
               ],
             ),
           ),
-        )
+        ),
       ],
+    );
+  }
+
+  String convertDate(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+
+  String longDate(DateTime dateTime) {
+    return DateFormat('EEE, MMM d, yyy').format(dateTime);
+  }
+
+  String convertTime(TimeOfDay timeOfDay) {
+    DateTime tempDate = DateFormat('hh:mm')
+        .parse(timeOfDay.hour.toString() + ':' + timeOfDay.minute.toString());
+    var dateFormat = DateFormat('h:mm a');
+    return dateFormat.format(tempDate);
+  }
+
+  Widget buildDateTimePicker(String data) {
+    return ListTile(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        side: BorderSide(color: Colors.black, width: 1.5),
+      ),
+      title: Text(data),
+      trailing: const Icon(
+        Icons.calendar_today,
+        // color: AppColors.eggPlant,
+      ),
     );
   }
 }
